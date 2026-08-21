@@ -5,7 +5,7 @@ export default async function Home() {
   const produtos = await prisma.product.findMany();
 
   return (
-    <main className="min-h-screen p-6 md:p-12 bg-slate-50 text-slate-900">
+    <main className="min-h-screen p-6 md:p-12">
       <div className="max-w-7xl mx-auto space-y-8">
         <h1 className="text-3xl font-bold tracking-tight">Produtos em Destaque</h1>
 
@@ -32,7 +32,7 @@ export default async function Home() {
                 </div>
 
                 <div className="space-y-3 pt-2 border-t border-slate-100">
-                  <p className="text-2xl font-bold text-slate-900">
+                  <p className="text-2xl font-bold text-green-800">
                     {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.price)}
                   </p>
 
