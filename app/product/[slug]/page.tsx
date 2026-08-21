@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import AddToCartButton from "@/components/AddToCartButton";
 
 interface PageProps {
     params: Promise<{slug: string}>
@@ -25,13 +26,11 @@ export default async function ProductDetailsPage({ params, }: PageProps) {
                 </div>
                 {/* Infos do produto */}
                 <div className="flex flex-col gap-4">
-                    <h1 className="text-3xl font-bold">{produto.name}</h1>
-                    <p className="text-2xl font-semibold text-green-600">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(produto.price)}</p>
+                    <h1 className="text-4xl font-bold">{produto.name}</h1>
+                    <p className="text-3xl font-semibold text-green-600">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(produto.price)}</p>
                     <p className="text-gray-600">{produto.description}</p>
 
-                    <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
-                        Adicionar ao Carrinho
-                    </button>
+                    <AddToCartButton product={produto}/>
                 </div>
             </div>
         </main>

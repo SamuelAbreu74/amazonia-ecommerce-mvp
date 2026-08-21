@@ -40,9 +40,6 @@ export default async function Home() {
                     <Link href={`/product/${item.slug}`} className="flex-1 py-2 px-3 text-sm font-medium border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
                       Ver Detalhes
                     </Link>
-                    <button className="flex-1 py-2 px-3 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer">
-                      Adicionar ao Carrinho
-                    </button>
                   </div>
                 </div>
               </div>
