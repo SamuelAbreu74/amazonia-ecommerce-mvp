@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 export default async function Home() {
   const produtos = await prisma.product.findMany();
@@ -11,16 +12,16 @@ export default async function Home() {
         {/* Grid de produtos */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {produtos.map((item) => (
-            <div 
-              key={item.id} 
+            <div
+              key={item.id}
               className="flex flex-col border border-slate-200 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               {/* Container de imagem com proporção fixa */}
               <div className="relative w-full aspect-square bg-slate-100">
-                <img 
-                  className="w-full h-full object-cover" 
-                  src={item.imageUrl} 
-                  alt={item.name} 
+                <img
+                  className="w-full h-full object-cover"
+                  src={item.imageUrl}
+                  alt={item.name}
                 />
               </div>
 
@@ -36,11 +37,11 @@ export default async function Home() {
                   </p>
 
                   <div className="flex gap-2">
-                    <button className="flex-1 py-2 px-3 text-sm font-medium border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">
+                    <Link href={`/product/${item.slug}`} className="flex-1 py-2 px-3 text-sm font-medium border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
                       Ver Detalhes
-                    </button>
-                    <button className="flex-1 py-2 px-3 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                      Adicionar
+                    </Link>
+                    <button className="flex-1 py-2 px-3 text-sm font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer">
+                      Adicionar ao Carrinho
                     </button>
                   </div>
                 </div>
