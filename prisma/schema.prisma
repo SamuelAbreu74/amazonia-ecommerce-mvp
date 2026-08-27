@@ -9,11 +9,32 @@ datasource db {
 }
 
 model Product {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   name        String
   slug        String   @unique
   description String
   price       Float
   imageUrl    String
+  items       OrderItems[]
   createdAt   DateTime @default(now())
+}
+
+model Order {
+  id          String @id @default(uuid())
+  status      String @default("PENDING")
+  total       Float
+  createdAt   DateTime @default(now())
+  items       OrderItems[]
+}
+
+
+model OrderItems {
+  id          String @id @default(uuid())
+  orderId     String  
+  order       Order @relation(fields: [orderId], references: [id]) 
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
+  quantity    Int
+  price       Float
+
 }
