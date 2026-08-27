@@ -10,10 +10,12 @@ export default function Cart() {
 
     // Busca os itens no carrinho
     const items = useCartStore((state) => state.items)
-    const itemsQuantity = items.reduce((total, item) => total + item.quantity, 0);
+    const totalItemsQuantity = items.reduce((total, item) => total + item.quantity, 0);
     const removeItem = useCartStore((state) => state.removeItem)
     const addItem = useCartStore((state) => state.addItem)
     const reduceItem = useCartStore((state) => state.reduceQuantity)
+
+
 
     const emptyCart = items.length === 0;
 
@@ -31,6 +33,23 @@ export default function Cart() {
 
         return accumulator + productValue;
     }, 0);
+
+
+
+
+    // Requisiçao para Checkout
+    const handleCheckout = async () => {
+
+        const response = await fetch("http://localhost:3000/api/checkout", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json' },
+            body: JSON.stringify({ cartItems: items })
+        });
+        
+        const result = await response.json();
+        console.log('Salvo com sucesso: ', result);
+
+    } 
 
 
     return (
@@ -100,13 +119,13 @@ export default function Cart() {
                         <div>
                             <h1 className="font-bold text-2xl">Resumo do pedido</h1>
                             <div className="flex justify-between">
-                                <small>Valor dos produtos ({itemsQuantity}): </small>
+                                <small>Valor dos produtos ({totalItemsQuantity}): </small>
                                 <small className="text-green-600">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalValue)}</small>
                             </div>
                         </div>
                         <div className="flex  gap-2">
                             <div className="border rounded-2xl p-2 bg-emerald-500 flex justify-center items-center cursor-pointer">
-                                <button className="cursor-pointer">Finalizar compra</button>
+                                <button onClick={handleCheckout} className="cursor-pointer">Finalizar compra</button>
                             </div>
                             <div className="border rounded p-2 bg-red-100 flex justify-center items-center cursor-pointer">
                                 <button className="cursor-pointer">Cancelar</button>
